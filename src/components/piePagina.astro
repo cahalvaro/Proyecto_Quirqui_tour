@@ -1,0 +1,137 @@
+---
+import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Quirqui-Tour">
+	<footer class="pie-pagina">
+		<div class="grupo-1">
+			<div class="box">
+				<h2>CONTACTO</h2>
+				<p>Whatsapp: +591 9999999</p>
+				<p>Email: correo@example.com</p>
+				<div class="red-social">
+					<a href="https://github.com/sis-inf/quirqi-tour/tree/main" class="fab fa-facebook" target="_blank"></a>
+					<a href="https://github.com/sis-inf/quirqi-tour/tree/main" class="fab fa-instagram" target="_blank"></a>
+					<a href="https://github.com/sis-inf/quirqi-tour/tree/main" class="fab fa-github" target="_blank"></a>
+					<a href="https://github.com/sis-inf/quirqi-tour/tree/main" class="fab fa-youtube" target="_blank"></a>
+				</div>
+			</div>
+			<div class="box logo-box">
+				<figure>
+					<a href="#">
+						<img src="logoPie.png" alt="logo quirqui tour" class="logo">
+					</a>
+				</figure>
+			</div>
+			<div class="box">
+				<h2>SOBRE NOSOTROS</h2>
+				<ul class="nav-linkss">
+					<li><a href="/equipTrabajo">Equipo de Trabajo</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="grupo-2">
+			<small>&copy; 2024 <b>Quirqui-tour</b> - Todos los derechos reservados</small>
+		</div>
+	</footer>
+</Layout>
+
+<style>
+	/* PIE DE PAGINA */
+	.pie-pagina {
+		width: 100%;
+		background-color: #4f2c1d; /* Fondo más oscuro y elegante */
+		color: white;
+	}
+
+	.pie-pagina .grupo-1 {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 30px;
+		max-width: 1200px;
+		margin: 30px auto;
+		padding: 0 20px;
+		text-align: center;
+	}
+
+	.pie-pagina .box {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.pie-pagina .box h2 {
+		color: #f6c496;
+		font-size: 1.5em;
+		margin-bottom: 15px;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.pie-pagina .box p,
+	.pie-pagina .nav-linkss a {
+		color: #fff;
+		font-family: 'Akshar', sans-serif;
+		font-size: 1.1em;
+		line-height: 1.5;
+	}
+
+	.pie-pagina .nav-linkss a {
+		text-decoration: none;
+		color: #fff;
+		transition: color 0.3s ease;
+	}
+
+	.pie-pagina .nav-linkss a:hover {
+		color: #f6c496;
+	}
+
+	.pie-pagina .grupo-2 {
+		background-color: #3b1d10; /* Fondo oscuro */
+		padding: 10px 0;
+		text-align: center;
+	}
+
+	.pie-pagina .grupo-2 small {
+		font-family: 'Akshar', sans-serif;
+		font-size: 0.9em;
+		color: #fff;
+	}
+
+	.pie-pagina .red-social {
+		display: flex;
+		justify-content: center;
+		margin-top: 10px;
+	}
+
+	.pie-pagina .red-social a {
+		font-size: 24px;
+		text-decoration: none;
+		color: #fff;
+		width: 45px;
+		height: 45px;
+		line-height: 45px;
+		border-radius: 50%;
+		background-color: #f6c496;
+		margin: 0 10px;
+		transition: background-color 0.3s ease, transform 0.3s ease;
+	}
+
+	.pie-pagina .red-social a:hover {
+		background-color: #3b1d10;
+		transform: scale(1.1);
+	}
+
+	.pie-pagina .logo-box .logo {
+		width: 150px;
+		height: auto;
+		margin-top: 10px;
+	}
+
+	@media screen and (max-width: 768px) {
+		.pie-pagina .grupo-1 {
+			grid-template-columns: 1fr;
+			grid-gap: 20px;
+		}
+	}
+</style>

@@ -1,0 +1,167 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { infturisticas } from '../../data/mockData'; 
+import Encabezado from '../../components/encabezado.astro';
+
+export const getStaticPaths = () => {
+  return infturisticas.map(item => ({
+    params: { slug: item.slug }, 
+  }));
+};
+
+const { slug } = Astro.params;
+
+const infturistica = infturisticas.find(item => item.slug === slug);
+---
+
+<Layout title={infturistica?.titulo || 'Cargando...'}>
+  <Encabezado />
+
+  <main>
+    <section class="infturistica-detalles">
+      <div class="header">
+        <!-- titulo en la parte superior izquierda -->
+        <h1>{infturistica?.titulo}</h1>
+      </div>
+
+      <div class="content">
+        <div class="column">
+          <!-- Imagen del sitio turistico -->
+          <img src={infturistica?.imagen} alt={infturistica?.titulo} />
+          
+          <!-- Filtro para cambiar a otros sitios turisticos -->
+          <div class="tour-filter">
+            <label for="tour-selector">Ver otro sitio:</label>
+            <select id="tour-selector">
+              <option value="">Seleccione un sitio</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="column">
+          <!-- descripcion del sitio turistico -->
+          <p>{infturistica?.descripcion}</p>
+        </div>
+
+        <div class="column">
+          <!-- korario de atencion -->
+          <div class="hours">
+            <h3>Horario de Atención</h3>
+            <p>{infturistica?.horario || 'Horario no disponible'}</p>
+          </div>
+
+          <!-- ubicacion en google maps -->
+          <div class="google-map">
+            <h3>Ubicación</h3>
+            <iframe 
+              src={`https://www.google.com/maps/embed/v1/place?q=${infturistica?.ubicacion}&key=YOUR_GOOGLE_MAPS_API_KEY`} 
+              width="100%" 
+              height="250" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy"
+            ></iframe>
+          </div>
+
+          <!-- Espacio para un anuncio -->
+          <div class="ad-space">
+            <p>¡No te pierdas nuestras promociones y ofertas especiales!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- boton para atras -->
+      <div class="back-button">
+        <!-- usando un enlace con href para simular un boton -->
+        <a href="javascript:history.back()" class="back-button-link">Volver a los destinos</a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .infturistica-detalles {
+    padding: 20px;
+  }
+
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    color: #d86e30;
+    font-size: 2em;
+  }
+
+  .content {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+  }
+
+  .column {
+    flex: 1;
+  }
+
+  .column img {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+  }
+
+  .tour-filter {
+    margin-top: 20px;
+  }
+
+  .tour-filter select {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .hours h3 {
+    margin-bottom: 10px;
+  }
+
+  .hours p {
+    font-size: 1.2em;
+    color: #e61515;
+  }
+
+  .google-map h3 {
+    margin-bottom: 10px;
+  }
+
+  .ad-space {
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+  }
+
+  .ad-space p {
+    font-size: 1.2em;
+    color: #000000;
+  }
+
+  /* Estilos del botón de regreso */
+  .back-button {
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .back-button-link {
+    padding: 10px 20px;
+    background-color: #cb6b27;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .back-button-link:hover {
+    background-color: #a55e23;
+  }
+
+</style>

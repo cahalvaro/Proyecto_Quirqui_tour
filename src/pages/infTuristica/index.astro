@@ -1,0 +1,125 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro'; 
+import { destinos } from '../../data/mockData'; 
+import Encabezado from '../../components/encabezado.astro';
+
+---
+
+<Layout title="Destinos Turísticos en Oruro">
+  <Encabezado />
+  
+  <main>
+    <section class="destinos-turisticos">
+      <div class="header">
+        <!-- titulo en la parte superior izquierda -->
+        <h1>Descubre los Destinos de Oruro</h1>
+        
+        <!-- campo de busqueda en la parte superior derecha -->
+        <div class="filters">
+          <input 
+            type="text" 
+            placeholder="Buscar destino..."  class="search-input" />
+          <button 
+            class="search-button" >
+            Buscar
+          </button>
+        </div>
+      </div>
+
+      <!-- contenedor de las cards de destinos -->
+      <div class="cards-container">
+        {destinos.map(destino => (
+          <Card 
+            key={destino.id} 
+            title={destino.titulo} 
+            image={destino.imagen} 
+            description={destino.descripcion}
+            link={`/infTuristica/${destino.slug}`} 
+          />
+        ))}
+      </div>
+
+      <!-- filtro -->
+      <div class="bottom-filters">
+        <div class="filter-options">
+          <!-- selector para elegir entre "rural" o "urbano" -->
+          <select class="filter-select" >
+            <option value="todos">Todos</option>
+            <option value="rural">Rural</option>
+            <option value="urbano">Urbano</option>
+          </select>
+        </div>
+
+        <div class="ad-space">
+          <!-- aqui agregar el anuncio -->
+          <p>¡No te pierdas nuestras promociones!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .destinos-turisticos {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;/*aqui se puede colocar a 0 es solo para el espacio entre el encabezado*/
+  }
+
+  .filters {
+    display: flex;
+    gap: 10px;
+  }
+
+  .search-input {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .search-button {
+    padding: 10px;
+    background-color: #cb6b27;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px; /* espacio entre cards */
+  }
+
+  .bottom-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .filter-options {
+    flex: 1;
+    text-align: center; /* centreado del selector el que anda abajo */
+  }
+
+  .ad-space {
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+  }
+
+  .filter-select {
+    padding: 10px;
+    font-size: 16px;
+  }
+</style>

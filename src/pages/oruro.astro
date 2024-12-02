@@ -1,0 +1,210 @@
+---
+import { services } from '../data/mockData'; // importa datos del archivo mockData.js
+import Layout from '../layouts/Layout.astro';
+import PiePagina from '../components/piePagina.astro';
+import Encabezado from '../components/encabezado.astro';
+
+let images = [];
+let loading = true;
+
+// Simula una carga de imágenes (esto es solo un ejemplo)
+setTimeout(() => {
+  images = [
+    "url-de-imagen-carnaval.jpg",
+    "url-de-imagen-mineria.jpg",
+    "url-de-imagen-historia.jpg",
+    "url-de-imagen-arquitectura.jpg"
+  ];
+  loading = false;
+}, 3000); // Simula la carga después de 3 segundos
+---
+
+<Layout title="Oruro">
+  <Encabezado />
+  
+  <main class="contenido">
+    <section class="informacion">
+      <div class="texto">
+        <h1 class="titulo">Oruro</h1>
+        <p class="descripcion">
+          Oruro es una ciudad situada en el altiplano boliviano, conocida por su vibrante cultura y tradiciones, especialmente el 
+          Carnaval de Oruro, que es Patrimonio de la Humanidad...
+        </p>
+      </div>
+
+      <div class="imagen">
+        <div class="image-frame">
+          {!loading && images.length > 0 ? (
+            <img id="carousel" src={images[0]} alt="Oruro" class="imagen-oruro" />
+          ) : (
+            <p>Cargando imágenes...</p>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <section class="tarjetas">
+      <h2 class="titulo-seccion">Descubre Más sobre Oruro</h2>
+      <div class="cards-container">
+        {services.map(service => (
+          <div class="card">
+            <a href={service.link} class="card-link"><!--aqui hace el redireccionamiento -->
+              <div class="image-container">
+                <img src={service.imageUrl} alt={service.title} class="card-image" />
+                <div class="overlay">
+                  <p class="description-overlay">{service.description}</p>
+                </div>
+              </div>
+              <h3 class="card-title">{service.title}</h3>
+            </a>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <PiePagina />
+</Layout>
+
+<style>
+  .contenido {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+
+  .informacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    gap: 30px;
+  }
+
+  .texto {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  .titulo {
+    font-size: 2.5em;
+    color: #1f4d77;
+    margin-bottom: 20px;
+  }
+
+  .descripcion {
+    font-size: 1.2em;
+    color: #555;
+    line-height: 1.6;
+    text-align: justify;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .imagen {
+    flex: 1;
+    max-width: 45%;
+    text-align: center;
+  }
+
+  .image-frame {
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .imagen-oruro {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .tarjetas {
+    margin-top: 60px;
+    text-align: center;
+  }
+
+  .titulo-seccion {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas por fila */
+    gap: 20px;
+    justify-items: center;
+    margin-top: 40px;
+  }
+
+  .card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+  }
+
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+  }
+
+  /* Contenedor de la imagen */
+  .image-container {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo negro semi-transparente */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  .description-overlay {
+    color: #fff;
+    font-size: 1.1em;
+    text-align: center;
+    margin: 0 10px;
+    padding: 10px;
+  }
+
+  .image-container:hover .overlay {
+    opacity: 1; /* Muestra la descripción al pasar el ratón */
+  }
+
+  .image-container:hover img {
+    filter: brightness(50%); /* Oscurece la imagen */
+  }
+</style>
